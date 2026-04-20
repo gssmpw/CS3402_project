@@ -71,7 +71,7 @@ def plot_learning_curves(df, task, save_path="learning_curves.png"):
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"  Saved: {save_path}")
+    #print(f"  Saved: {save_path}")
 
 
 def plot_confusion_matrices(y_test, classical_preds, ann_preds,
@@ -95,7 +95,7 @@ def plot_confusion_matrices(y_test, classical_preds, ann_preds,
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"  Saved: {save_path}")
+    #print(f"  Saved: {save_path}")
 
 
 def print_summary_table(df):
@@ -115,8 +115,8 @@ def print_summary_table(df):
         rows.append(row)
 
     summary = pd.DataFrame(rows)
-    print("\n" + "=" * 70)
-    print("SUMMARY TABLE (mean ± std across runs)")
-    print("=" * 70)
-    print(summary.to_string(index=False))
+    #print("\n" + "=" * 70)
+    #print("SUMMARY TABLE (mean ± std across runs)")
+    #print("=" * 70)
+    #print(summary.to_string(index=False))
     return summary

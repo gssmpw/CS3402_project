@@ -28,7 +28,7 @@ np.random.seed(config.RANDOM_STATE)
 
 def load_data():
     df = pd.read_csv(config.CSV_PATH)
-    print(f"Loaded:  {df.shape[0]:,} rows × {df.shape[1]} columns")
+    #print(f"Loaded:  {df.shape[0]:,} rows × {df.shape[1]} columns")
 
     if config.DROP_COLS:
         df = df.drop(columns=config.DROP_COLS, errors="ignore")
@@ -37,11 +37,11 @@ def load_data():
     missing = df.isnull().sum()
     missing = missing[missing > 0]
     if not missing.empty:
-        print(f"\nMissing values found:\n{missing.to_string()}")
+        #print(f"\nMissing values found:\n{missing.to_string()}")
         df = df.dropna()
-        print(f"After dropping NaN rows: {df.shape[0]:,} samples")
-    else:
-        print("Missing values: none ✓")
+        #print(f"After dropping NaN rows: {df.shape[0]:,} samples")
+    #else:
+        #print("Missing values: none ✓")
 
     X = df.drop(columns=[config.TARGET_COL])
     y = df[config.TARGET_COL]
@@ -56,12 +56,12 @@ def load_data():
         le = LabelEncoder()
         y  = le.fit_transform(y.astype(str))
         n_classes = len(le.classes_)
-        print(f"Classes ({n_classes}): {le.classes_}")
+        #print(f"Classes ({n_classes}): {le.classes_}")
     else:
         y = y.astype(float).values
 
     X = X.astype(float).values
-    print(f"Features: {X.shape[1]}  |  Task: {config.TASK.upper()}  |  Classes: {n_classes}")
+    #print(f"Features: {X.shape[1]}  |  Task: {config.TASK.upper()}  |  Classes: {n_classes}")
     return X, y, n_classes
 
 
@@ -72,8 +72,8 @@ def run_experiments(X_train_full, y_train_full, X_test, y_test, n_classes):
     fracs   = config.TRAIN_FRACTIONS
     total   = len(fracs) * config.N_RUNS * 2
 
-    print(f"\nRunning {total} experiments "
-          f"({len(fracs)} fractions × {config.N_RUNS} runs × 2 models)\n")
+    #print(f"\nRunning {total} experiments "
+          #f"({len(fracs)} fractions × {config.N_RUNS} runs × 2 models)\n")
 
     done = 0
     for frac in fracs:
@@ -102,8 +102,8 @@ def run_experiments(X_train_full, y_train_full, X_test, y_test, n_classes):
                             "run": run + 1, "n_train": n_samples, **a_mets})
             done += 1
 
-            print(f"  [{done:>3}/{total}]  frac={int(frac*100):>3}%  "
-                  f"run={run+1}  n_train={n_samples:,}")
+            #print(f"  [{done:>3}/{total}]  frac={int(frac*100):>3}%  "
+                  #f"run={run+1}  n_train={n_samples:,}")
 
     return pd.DataFrame(records)
 
@@ -111,13 +111,13 @@ def run_experiments(X_train_full, y_train_full, X_test, y_test, n_classes):
 # ── 3. Main ───────────────────────────────────────────────────────────────
 
 def main():
-    print("=" * 60)
-    print("  ML Experiment: Training Data Size vs. Performance")
-    print("=" * 60)
-    print(f"  Dataset : {config.CSV_PATH}")
-    print(f"  Target  : {config.TARGET_COL}")
-    print(f"  Task    : {config.TASK.upper()}")
-    print("=" * 60 + "\n")
+    #print("=" * 60)
+    #print("  ML Experiment: Training Data Size vs. Performance")
+    #print("=" * 60)
+    #print(f"  Dataset : {config.CSV_PATH}")
+    #print(f"  Target  : {config.TARGET_COL}")
+    #print(f"  Task    : {config.TASK.upper()}")
+    #print("=" * 60 + "\n")
 
     # Load
     X, y, n_classes = load_data()
@@ -134,20 +134,20 @@ def main():
     scaler       = StandardScaler()
     X_train_full = scaler.fit_transform(X_train_full)
     X_test       = scaler.transform(X_test)
-    print(f"\nTrain pool: {X_train_full.shape[0]:,}  |  Test (fixed): {X_test.shape[0]:,}")
+    #print(f"\nTrain pool: {X_train_full.shape[0]:,}  |  Test (fixed): {X_test.shape[0]:,}")
 
     # Run experiments
     df = run_experiments(X_train_full, y_train_full, X_test, y_test, n_classes)
 
     # Save raw results
     df.to_csv(config.RESULTS_CSV, index=False)
-    print(f"\n  Saved raw results → {config.RESULTS_CSV}")
+    #print(f"\n  Saved raw results → {config.RESULTS_CSV}")
 
     # Summary table
     print_summary_table(df)
 
     # Learning curves
-    print("\nGenerating plots...")
+    #print("\nGenerating plots...")
     plot_learning_curves(df, config.TASK, config.PLOT_FILE)
 
     # Confusion matrix (classification only)
@@ -166,9 +166,9 @@ def main():
         plot_confusion_matrices(y_test, classical_preds, ann_preds)
 
     # Final summary
-    print("\n" + "=" * 60)
-    print("DONE")
-    print("=" * 60)
+    #print("\n" + "=" * 60)
+    #print("DONE")
+    #print("=" * 60)
     for model in df["model"].unique():
         sub = df[df["model"] == model].groupby("fraction")
         if config.TASK == "classification":
