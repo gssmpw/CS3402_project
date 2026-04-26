@@ -3,10 +3,10 @@
 # =============================================================
 
 # --- Dataset ---
-CSV_PATH   = "bank_transactions_data_2.csv"  # Path to your CSV file
-TARGET_COL = "TransactionAmount"            # Column to predict
+CSV_PATH   = r"\Users\gsmit\Documents\CS3402_project\datasets\StudentsPerformance.csv"  # Path to your CSV file
+TARGET_COL = "gender"            # Column to predict
 TASK       = "regression"    # "classification" or "regression"
-DROP_COLS  = ["TransactionID", "AccountID"]                  # Columns to ignore, e.g. ["id", "name"]
+DROP_COLS  = []                  # Columns to ignore, e.g. ["id", "name"]
 
 # --- Experiment ---
 TRAIN_FRACTIONS = [0.10, 0.30, 0.50, 1.00]
