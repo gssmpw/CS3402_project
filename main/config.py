@@ -1,12 +1,38 @@
 # =============================================================
-# config.py — Edit this file for each dataset you run
+# config.py — Edit this file for each run
 # =============================================================
 
-# --- Dataset ---
-CSV_PATH   = r"\Users\gsmit\Documents\CS3402_project\datasets\StudentsPerformance.csv"  # Path to your CSV file
-TARGET_COL = "gender"            # Column to predict
-TASK       = "regression"    # "classification" or "regression"
-DROP_COLS  = []                  # Columns to ignore, e.g. ["id", "name"]
+# --- Datasets (define exactly 4) ---
+DATASETS = [
+    {
+        "name":       "StudentsPerformance",
+        "csv_path":   r"\Users\gsmit\Documents\CS3402_project\datasets\StudentsPerformance.csv",
+        "target_col": "gender",
+        "task":       "classification",   # "classification" or "regression"
+        "drop_cols":  [],
+    },
+    {
+        "name":       "heart",
+        "csv_path":   r"\Users\gsmit\Documents\CS3402_project\datasets\heart.csv",
+        "target_col": "target",
+        "task":       "classification",
+        "drop_cols":  [],
+    },
+    {
+        "name":       "healthcare-dataset-stroke-data",
+        "csv_path":   r"\Users\gsmit\Documents\CS3402_project\datasets\healthcare-dataset-stroke-data.csv",
+        "target_col": "stroke",
+        "task":       "classification",
+        "drop_cols":  ["id"],
+    },
+    {
+        "name":       "AIvsHumanTextDataset",
+        "csv_path":   r"\Users\gsmit\Documents\CS3402_project\datasets\AIvsHumanTextDataset.csv",
+        "target_col": "label",
+        "task":       "classification",
+        "drop_cols":  ["text_id"],
+    },
+]
 
 # --- Experiment ---
 TRAIN_FRACTIONS = [0.10, 0.30, 0.50, 1.00]
